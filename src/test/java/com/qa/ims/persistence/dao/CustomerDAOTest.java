@@ -38,13 +38,13 @@ public class CustomerDAOTest {
 	public void testReadLatest() {
 		assertEquals(new Customer(1L, "jordan", "harrison", "jharrisson", "j1h2344"), DAO.readLatest());
 	}
-
+ 
 	@Test
 	public void testRead() {
 		final long ID = 1L;
 		assertEquals(new Customer(ID, "jordan", "harrison", "jharrisson", "j1h2344"), DAO.read(ID));
 	}
-
+ 
 	@Test
 	public void testUpdate() {
 		final Customer updated = new Customer(1L, "chris", "perrins" , "chrissyp","c5055p");
