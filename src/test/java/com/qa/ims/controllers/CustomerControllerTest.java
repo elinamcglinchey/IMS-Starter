@@ -63,14 +63,14 @@ public class CustomerControllerTest {
 		Mockito.when(this.utils.getString()).thenReturn(updated.getFirstName(), updated.getSurname(), updated.getUsername(), updated.getPassword());
 		Mockito.when(this.dao.update(updated)).thenReturn(updated);
 
-		assertEquals(updated, this.controller.update());
+		assertEquals(updated, this.controller.update()); 
 
 		Mockito.verify(this.utils, Mockito.times(1)).getLong();
 		Mockito.verify(this.utils, Mockito.times(2)).getString();
 		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
 	}
 
-	@Test
+	@Test 
 	public void testDelete() {
 		final long ID = 1L;
 
