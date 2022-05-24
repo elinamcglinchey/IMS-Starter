@@ -28,12 +28,12 @@ public class CustomerDAO implements Dao<Customer> {
 		return new Customer(id, firstName, surname, username, password);
 	}
  
-	/**
+	/** 
 	 * Reads all customers from the database
 	 * 
 	 * @return A list of customers
 	 */
-	@Override
+	@Override 
 	public List<Customer> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
@@ -72,9 +72,11 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer create(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO customers(first_name, surname, user_name, password) VALUES (?, ?)");) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
+			statement.setString(3, customer.getUsername());
+			statement.setString(4, customer.getPassword());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -111,9 +113,11 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE customers SET first_name = ?, surname = ?, username = ?, password = ? WHERE id = ?");) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
+			statement.setString(3, customer.getUsername());
+			statement.setString(4, customer.getPassword());
 			statement.setLong(3, customer.getId());
 			statement.executeUpdate();
 			return read(customer.getId());
@@ -141,5 +145,7 @@ public class CustomerDAO implements Dao<Customer> {
 		}
 		return 0;
 	}
+
+	
 
 }
