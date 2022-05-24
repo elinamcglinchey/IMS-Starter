@@ -10,11 +10,11 @@ import com.qa.ims.utils.Utils;
  * function to apply to an entity.
  *
  */
-public enum Action {
+public enum Action { // enums are empty objects, seperate file types
 	CREATE("To save a new entity into the database"), READ("To read an entity from the database"),
 	UPDATE("To change an entity already in the database"), DELETE("To remove an entity from the database"),
 	RETURN("To return to domain selection");
-
+ 
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private String description;

@@ -18,7 +18,7 @@ public class CustomerDAO implements Dao<Customer> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	@Override
+	@Override 
 	public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
 		String firstName = resultSet.getString("first_name");
@@ -27,7 +27,7 @@ public class CustomerDAO implements Dao<Customer> {
 		String password = resultSet.getString("password");
 		return new Customer(id, firstName, surname, username, password);
 	}
-
+ 
 	/**
 	 * Reads all customers from the database
 	 * 
