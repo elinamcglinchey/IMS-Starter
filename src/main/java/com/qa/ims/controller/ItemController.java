@@ -18,7 +18,6 @@ import com.qa.ims.utils.Utils;
 public class ItemController implements CrudController<Item> {
  
 	public static final Logger LOGGER = LogManager.getLogger();
-
 	private ItemDAO itemDAO;
 	private Utils utils;
 
@@ -52,7 +51,7 @@ public class ItemController implements CrudController<Item> {
 		LOGGER.info("Please enter a name");
 		String name = utils.getString();
 		Item item = itemDAO.create(new Item(id, cost, name));
-		LOGGER.info("Customer created");
+		LOGGER.info("Item created");
 		return item;
 	}
 
