@@ -8,13 +8,13 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.Utils;
-
+ 
 /**
  * Takes in customer details for CRUD functionality
  *
  */
 public class CustomerController implements CrudController<Customer> {
-
+ 
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	private CustomerDAO customerDAO;

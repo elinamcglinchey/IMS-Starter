@@ -16,18 +16,18 @@ import com.qa.ims.utils.DBUtils;
  
 public class CustomerDAO implements Dao<Customer> {
 
-	public static final Logger LOGGER = LogManager.getLogger();
+public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override 
 	public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
-		String firstName = resultSet.getString("first_name");
-		String surname = resultSet.getString("surname");
-		String username = resultSet.getString("username");
-		String password = resultSet.getString("password");
+		String firstName = resultSet.getString("First_name");
+		String surname = resultSet.getString("Last_name");
+		String username = resultSet.getString("Username");
+		String password = resultSet.getString("Password");
 		return new Customer(id, firstName, surname, username, password);
 	}
- 
+  
 	/** 
 	 * Reads all customers from the database
 	 * 
@@ -72,7 +72,7 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer create(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname, user_name, password) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO customers(First_name, Last_name, Username, Password) VALUES (?, ?, ?, ?)");) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
 			statement.setString(3, customer.getUsername());
@@ -113,12 +113,12 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET first_name = ?, surname = ?, username = ?, password = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE customers SET First_name = ?, Last_name = ?, Username = ?, Password = ? WHERE id = ?");) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
 			statement.setString(3, customer.getUsername());
 			statement.setString(4, customer.getPassword());
-			statement.setLong(3, customer.getId());
+			statement.setLong(5, customer.getId());
 			statement.executeUpdate();
 			return read(customer.getId());
 		} catch (Exception e) {

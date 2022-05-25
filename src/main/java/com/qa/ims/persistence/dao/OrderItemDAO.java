@@ -1,6 +1,6 @@
 package com.qa.ims.persistence.dao;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.OrderItem;
 import com.qa.ims.utils.DBUtils;
  
@@ -22,7 +21,7 @@ public class OrderItemDAO implements Dao<OrderItem> {
 	@Override 
 	public OrderItem modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderItemId = resultSet.getLong("orderItemId");
-		Float cost = resultSet.getFloat("cost");
+		Double cost = resultSet.getDouble("cost");
 		String name = resultSet.getString("name");
 		Long itemId = resultSet.getLong("itemId");
 		return new OrderItem(orderItemId, cost, name, itemId);
@@ -74,7 +73,7 @@ public class OrderItemDAO implements Dao<OrderItem> {
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orderitems(orderItemId, cost, name, itemId) VALUES (?, ?)");) {
 			statement.setLong(1, orderitems.getOrderItemId());
-			statement.setFloat(2, orderitems.getCost());
+			statement.setDouble(2, orderitems.getCost());
 			statement.setString(3, orderitems.getName());
 			statement.setLong(4, orderitems.getItemId());
 			statement.executeUpdate();
@@ -116,7 +115,7 @@ public class OrderItemDAO implements Dao<OrderItem> {
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE orderitems SET orderItemId = ?, cost = ?, name = ?, itemId = ? WHERE id = ?");) {
 			statement.setLong(1, orderitems.getOrderItemId());
-			statement.setFloat(2, orderitems.getCost());
+			statement.setDouble(2, orderitems.getCost());
 			statement.setString(3, orderitems.getName());
 			statement.setLong(4, orderitems.getItemId());
 			statement.executeUpdate();
@@ -136,7 +135,7 @@ public class OrderItemDAO implements Dao<OrderItem> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM orderitems WHERE id = ?");) {
 			statement.setLong(1, id);
 			return statement.executeUpdate();
 		} catch (Exception e) {

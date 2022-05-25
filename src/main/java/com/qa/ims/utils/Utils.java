@@ -9,7 +9,7 @@ public class Utils {
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private final Scanner scanner;
+	private final Scanner scanner; 
 
 	public Utils(Scanner scanner) {
 		super();
@@ -38,7 +38,7 @@ public class Utils {
 		return scanner.nextLine();
 	}
 
-	public Double getDouble() {
+	public Double getDouble() { // I am changing from Float to Double 
 		String input = null;
 		Double doubleInput = null;
 		do {
