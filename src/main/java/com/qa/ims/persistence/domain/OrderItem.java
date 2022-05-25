@@ -3,17 +3,17 @@ package com.qa.ims.persistence.domain;
 public class OrderItem {
 
 	private Long orderItemId;
-	private float cost;
+	private double cost;
 	private String name;
 	private Long itemId;
 	
-	public OrderItem(float cost, String name, Long itemId) {
+	public OrderItem(double cost, String name, Long itemId) {
 		super();
 		this.cost = cost;
 		this.name = name;
 		this.itemId = itemId;
 	} 
-	public OrderItem(Long orderItemId, float cost, String name, Long itemId) {
+	public OrderItem(Long orderItemId, double cost, String name, Long itemId) {
 		super();
 		this.orderItemId = orderItemId;
 		this.cost = cost;
@@ -26,10 +26,10 @@ public class OrderItem {
 	public void setOrderItemId(Long orderItemId) {
 		this.orderItemId = orderItemId;
 	}
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
-	public void setCost(float cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 	public String getName() {
@@ -53,7 +53,9 @@ public class OrderItem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(cost);
+		long temp;
+		temp = Double.doubleToLongBits(cost);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((itemId == null) ? 0 : itemId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((orderItemId == null) ? 0 : orderItemId.hashCode());
@@ -68,7 +70,7 @@ public class OrderItem {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderItem other = (OrderItem) obj;
-		if (Float.floatToIntBits(cost) != Float.floatToIntBits(other.cost))
+		if (Double.doubleToLongBits(cost) != Double.doubleToLongBits(other.cost))
 			return false;
 		if (itemId == null) {
 			if (other.itemId != null)

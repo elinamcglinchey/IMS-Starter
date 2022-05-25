@@ -21,6 +21,16 @@ public class CustomerDAOTest {
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
 	}
 
+	@Before
+	public void insert() {
+		final Customer created1= new Customer(1L, "anna", "evans", "annaevans", "anna");
+		final Customer created2 = new Customer (2L, "liam", "mcglinchey", "liammc", "ljohn");
+		DAO.create(created1);
+		DAO.create(created2);
+		// Data didn't appear as I wanted to in schema, implemented data inside the test
+		// now using Anna instead of Jordan 
+	}
+	
 	@Test
 	public void testCreate() {
 		final Customer created = new Customer(2L, "chris", "perrins", "chrissyp","c5055p");
@@ -42,7 +52,7 @@ public class CustomerDAOTest {
 	@Test
 	public void testRead() {
 		final long ID = 1L;
-		assertEquals(new Customer(ID, "jordan", "harrison", "jharrisson", "j1h2344"), DAO.read(ID));
+		assertEquals(new Customer(ID, "anna", "evans", "annaevans", "anna"), DAO.read(ID));
 	}
  
 	@Test

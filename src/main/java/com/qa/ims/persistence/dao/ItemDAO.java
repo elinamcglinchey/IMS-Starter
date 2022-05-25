@@ -22,7 +22,7 @@ import com.qa.ims.utils.DBUtils;
 		@Override 
 		public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 			Long id = resultSet.getLong("id");
-			Float cost = resultSet.getFloat("cost");
+			Double cost = resultSet.getDouble("cost");
 			String name = resultSet.getString("name");
 			return new Item(id, cost, name);
 		}
@@ -72,7 +72,7 @@ import com.qa.ims.utils.DBUtils;
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					PreparedStatement statement = connection
 							.prepareStatement("INSERT INTO items(cost, name) VALUES (?, ?)");) {
-				statement.setFloat(1, item.getCost());
+				statement.setDouble(1, item.getCost());
 				statement.setString(2, item.getName());
 				statement.executeUpdate();
 				return readLatest();
@@ -105,7 +105,7 @@ import com.qa.ims.utils.DBUtils;
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					PreparedStatement statement = connection
 					.prepareStatement("UPDATE items SET cost = ?, name = ? WHERE id = ?");) {
-				statement.setFloat(1, item.getCost());
+				statement.setDouble(1, item.getCost());
 				statement.setString(2, item.getName());
 				statement.setLong(3, item.getId());
 				statement.executeUpdate();
