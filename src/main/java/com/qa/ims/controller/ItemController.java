@@ -18,7 +18,6 @@ import com.qa.ims.utils.Utils;
 public class ItemController implements CrudController<Item> {
  
 	public static final Logger LOGGER = LogManager.getLogger();
-
 	private ItemDAO itemDAO;
 	private Utils utils;
 
