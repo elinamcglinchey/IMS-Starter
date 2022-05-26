@@ -1,17 +1,16 @@
 package com.qa.ims.persistence.dao;
 
-	import java.sql.Connection;
+	import java.sql.Connection;  
 	import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
-	import java.util.ArrayList;
+	import java.util.ArrayList; 
 	import java.util.List;
 	 
 	import org.apache.logging.log4j.LogManager;
 	import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 	 
@@ -23,11 +22,9 @@ import com.qa.ims.utils.DBUtils;
 		@Override 
 		public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 			Long id = resultSet.getLong("id");
-			String firstName = resultSet.getString("first_name");
-			String surname = resultSet.getString("surname");
-			String username = resultSet.getString("username");
-			String password = resultSet.getString("password");
-			return new Item(id, firstName, surname, username, password);
+			Double cost = resultSet.getDouble("cost");
+			String name = resultSet.getString("name");
+			return new Item(id, cost, name);
 		}
 	 
 		/**
@@ -44,14 +41,14 @@ import com.qa.ims.utils.DBUtils;
 				while (resultSet.next()) {
 					items.add(modelFromResultSet(resultSet));
 				}
-				return item;
+				return items;
 			} catch (SQLException e) {
 				LOGGER.debug(e);
 				LOGGER.error(e.getMessage());
 			}
 			return new ArrayList<>();
 		}
-
+ 
 		public Item readLatest() {
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					Statement statement = connection.createStatement();
@@ -74,9 +71,10 @@ import com.qa.ims.utils.DBUtils;
 		public Item create(Item item) {
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					PreparedStatement statement = connection
-							.prepareStatement("INSERT INTO items(first_name, surname) VALUES (?, ?)");) {
-				statement.setString(1, item.getFirstName());
-				statement.setString(2, item.getSurname());
+							.prepareStatement("INSERT INTO items(id, cost, name) VALUES (?, ?, ?);");) {
+				statement.setLong(1, item.getId());
+				statement.setDouble(2, item.getCost());
+				statement.setString(3, item.getName());
 				statement.executeUpdate();
 				return readLatest();
 			} catch (Exception e) {
@@ -85,7 +83,7 @@ import com.qa.ims.utils.DBUtils;
 			}
 			return null;
 		}
-
+// ASK IS LONG CORRECT / HOW DO I PROPERLY FORMAT
 		@Override
 		public Item read(Long id) {
 			try (Connection connection = DBUtils.getInstance().getConnection();
@@ -102,20 +100,14 @@ import com.qa.ims.utils.DBUtils;
 			return null;
 		}
 
-		/**
-		 * Updates a customer in the database
-		 * 
-		 * @param customer - takes in a customer object, the id field will be used to
-		 *                 update that customer in the database
-		 * @return
-		 */
+		
 		@Override
 		public Item update(Item item) {
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					PreparedStatement statement = connection
-							.prepareStatement("UPDATE items SET first_name = ?, surname = ? WHERE id = ?");) {
-				statement.setString(1, item.getFirstName());
-				statement.setString(2, item.getSurname());
+					.prepareStatement("UPDATE items SET cost = ?, name = ? WHERE id = ?");) {
+				statement.setDouble(1, item.getCost());
+				statement.setString(2, item.getName());
 				statement.setLong(3, item.getId());
 				statement.executeUpdate();
 				return read(item.getId());
@@ -134,7 +126,7 @@ import com.qa.ims.utils.DBUtils;
 		@Override
 		public int delete(long id) {
 			try (Connection connection = DBUtils.getInstance().getConnection();
-					PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?");) {
+					PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");) {
 				statement.setLong(1, id);
 				return statement.executeUpdate();
 			} catch (Exception e) {

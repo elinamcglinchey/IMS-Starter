@@ -3,30 +3,30 @@ package com.qa.ims.persistence.domain;
 public class Item {
 
 	
-	private int id;
-	private float cost;
+	private Long id;
+	private Double cost;
 	private String name;
-	public Item(float cost, String name) {
+	public Item(Double cost, String name) {
 		super();
 		this.cost = cost;
 		this.name = name;
 	}
-	public Item(int id, float cost, String name) {
+	public Item(Long id, Double cost, String name) {
 		super();
-		this.id = id;
+		this.id = id; 
 		this.cost = cost;
 		this.name = name;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public float getCost() {
+	public Double getCost() {
 		return cost;
 	}
-	public void setCost(float cost) {
+	public void setCost(Double cost) {
 		this.cost = cost;
 	}
 	public String getName() {
@@ -43,8 +43,8 @@ public class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(cost);
-		result = prime * result + id;
+		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -57,9 +57,15 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (Float.floatToIntBits(cost) != Float.floatToIntBits(other.cost))
+		if (cost == null) {
+			if (other.cost != null)
+				return false;
+		} else if (!cost.equals(other.cost))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -68,6 +74,4 @@ public class Item {
 			return false;
 		return true;
 	}
-	
-	
 }

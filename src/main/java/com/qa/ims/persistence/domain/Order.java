@@ -2,37 +2,45 @@ package com.qa.ims.persistence.domain;
 
 public class Order {
 
-	private int orderId;
-	private int customerId;
-	public Order(int orderId, int customerId) {
+	private Long orderId;
+	private Long customerId;
+	
+	public Order(Long orderId, Long customerId) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
 	}
-	public int getOrderId() {
+
+	public Long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
-	public int getCustomerId() {
+
+	public Long getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(int customerId) {
+
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", customerId=" + customerId + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + customerId;
-		result = prime * result + orderId;
+		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -42,12 +50,16 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (customerId != other.customerId)
+		if (customerId == null) {
+			if (other.customerId != null)
+				return false;
+		} else if (!customerId.equals(other.customerId))
 			return false;
-		if (orderId != other.orderId)
+		if (orderId == null) {
+			if (other.orderId != null)
+				return false;
+		} else if (!orderId.equals(other.orderId))
 			return false;
 		return true;
 	}
-	
-	
 }
