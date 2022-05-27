@@ -18,12 +18,12 @@ public class OrderDAOTest {
 	@Before
 	public void setup() {
 		DBUtils.connect();
-		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
+		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/order-data.sql");
 	}
 
 	@Before
 	public void insert() {
-		final Order created1= new Order(1L, 188L, 11.13);
+		final Order created1= new Order(1L, 1L, 11.13);
 		//final Order created2 = new Customer (2L, 2L);
 		DAO.create(created1);
 		//DAO.create(created2);
@@ -33,32 +33,32 @@ public class OrderDAOTest {
 	
 	@Test
 	public void testCreate() {
-		final Order created = new Order(3L, 36L, 56.02);
+		final Order created = new Order(3L, 2L, 56.02);
 		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
 	public void testReadAll() {
 		List<Order> expected = new ArrayList<>();
-		expected.add(new Order(1L, 12L, 60.06));
+		expected.add(new Order(1L, 3L, 60.06));
 		// expected.add(new Order(2L, 2L, 74.05)); not needed - test
 		assertEquals(expected, DAO.readAll());
 	}
 
 	@Test
 	public void testReadLatest() {
-		assertEquals(new Order(2L, 2L, null), DAO.readLatest());
+		assertEquals(new Order(1L, 1L, 88.90), DAO.readLatest());
 	}
  
 	@Test
 	public void testRead() {
 		final long ID = 1L;
-		assertEquals(new Order(1L, 12L, 60.06), DAO.read(ID));
+		assertEquals(new Order(1L, 1L, 88.90), DAO.read(ID));
 	}
  
 	@Test
 	public void testUpdate() {
-		final Order updated = new Order(3L, 36L, 56.02);
+		final Order updated = new Order(1L, 3L, 56.02);
 		assertEquals(updated, DAO.update(updated));
 
 	}

@@ -40,8 +40,8 @@ public class OrderControllerTest {
 		final Double COST = 77.05;
 		final Order created = new Order(ORDER_ID, CUSTOMER_ID, COST);
 
-	Mockito.when(utils.getLong()).thenReturn(ORDER_ID);
-		Mockito.when(utils.getLong()).thenReturn(CUSTOMER_ID);
+	Mockito.when(utils.getLong()).thenReturn(ORDER_ID, CUSTOMER_ID);
+		//Mockito.when(utils.getLong()).thenReturn(CUSTOMER_ID);
 		Mockito.when(utils.getDouble()).thenReturn(COST);
 		//Mockito.when(utils.getString()).thenReturn(ITEM_ID, ITEM_COST, ITEM_NAME);
 		// Mockito.when(utils.getString()).thenReturn(ITEM_NAME);
@@ -49,7 +49,7 @@ public class OrderControllerTest {
 
 		assertEquals(created, controller.create());
 
-		Mockito.verify(utils, Mockito.times(1)).getLong();
+		Mockito.verify(utils, Mockito.times(2)).getLong();
 		Mockito.verify(utils, Mockito.times(1)).getDouble();
 		Mockito.verify(dao, Mockito.times(1)).create(created);
 	
@@ -69,21 +69,22 @@ public class OrderControllerTest {
 
 	@Test
 	public void testUpdate() {
-		Order updated = new Order(9L, 190L, 77.05);
+		Order updated = new Order(13L, 190L, 77.05);
 
-		Mockito.when(this.utils.getLong()).thenReturn(190L);
+		Mockito.when(this.utils.getLong()).thenReturn(updated.getOrderId(),updated.getCustomerId());
+	//	Mockito.when(this.utils.getLong()).thenReturn(190L);
 		Mockito.when(this.utils.getDouble()).thenReturn(updated.getCost());
 		Mockito.when(this.dao.update(updated)).thenReturn(updated);
 
 		// Test to see if total items in order work
-		System.out.println(updated);
-		System.out.println(this.controller.update());
+//		System.out.println(updated);
+//		System.out.println(this.controller.update());
 		// latest and most updated version input
 		assertEquals(updated, this.controller.update()); 
 
-		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-		Mockito.verify(this.utils, Mockito.times(1)).getDouble();
-		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
+		Mockito.verify(utils, Mockito.times(2)).getLong();
+		Mockito.verify(utils, Mockito.times(1)).getDouble();
+		Mockito.verify(dao, Mockito.times(1)).update(updated);
 	}
 
 	@Test 

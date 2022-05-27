@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
 PRIMARY KEY (`id`)
 );
 
-drop table if exists orders;
+drop table if exists `ims`.`orders`;
 create table orders(
 orderID int not null AUTO_INCREMENT,
 customerID int not null,
