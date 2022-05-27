@@ -6,4 +6,4 @@ INSERT INTO `ims`.`items` (`id`, `cost`, `name`) VALUES (1, 0.35, 'rubber');
 INSERT INTO `ims`.`items` (`id`, `cost`, `name`) VALUES (1, 0.35, 'rubber');
 INSERT INTO `ims`.`items` (`id`, `cost`, `name`) VALUES (1, 0.35, 'rubber');
 INSERT INTO `ims`.`items` (`id`, `cost`, `name`) VALUES (1, 0.35, 'rubber');
-INSERT INTO `ims`.`orders` (`orderitemID`, `customerID`, `cost`) VALUES (1, 88.90);
+INSERT INTO `ims`.`orders` (`orderID`, `customerID`, `cost`) VALUES (1, 88.90);
