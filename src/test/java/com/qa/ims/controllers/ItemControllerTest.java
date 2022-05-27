@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
 import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.Utils;
@@ -27,7 +27,7 @@ public class ItemControllerTest {
 	private ItemDAO dao;
 
 	@InjectMocks
-	private CustomerController controller;
+	private ItemController controller;
 
 	@Test
 	public void testCreate() {
@@ -36,11 +36,11 @@ public class ItemControllerTest {
 		final Double ITEM_COST = 0.65;
 		final String ITEM_NAME = "pencil";
 		final Item created = new Item(ITEM_ID, ITEM_COST, ITEM_NAME);
-		
+
 		//final String F_NAME = "barry", L_NAME = "scott", U_NAME = "scottyb123", P_WORD = "scottpass123";
 		//final Customer created = new Customer(F_NAME, L_NAME, U_NAME, P_WORD);
 
-		
+
 		Mockito.when(utils.getLong()).thenReturn(ITEM_ID);
 		Mockito.when(utils.getDouble()).thenReturn(ITEM_COST);
 		Mockito.when(utils.getString()).thenReturn(ITEM_NAME);
@@ -55,9 +55,9 @@ public class ItemControllerTest {
 	}
 
 	@Test
-	public void testReadAll() {
+	public void testReadAll() { // add to sql data
 		List<Item> items = new ArrayList<>();
-		items.add(new Item(2L,0.35, "rubber"));
+		items.add(new Item(1L,0.35, "rubber"));
 
 		Mockito.when(dao.readAll()).thenReturn(items);
 

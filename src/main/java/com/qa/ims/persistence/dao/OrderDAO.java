@@ -13,16 +13,17 @@ import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
- 
+  
 public class OrderDAO implements Dao<Order> {
 
 public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override 
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long orderId = resultSet.getLong("orderID");
+		Long orderId = resultSet.getLong("ID");
 		Long customerId = resultSet.getLong("customerID");
-		return new Order(orderId, customerId);
+		double cost = resultSet.getDouble("cost");
+		return new Order(orderId, customerId, cost);
 	}
   
 	/** 
@@ -69,9 +70,10 @@ public static final Logger LOGGER = LogManager.getLogger();
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(orderID, customerID) VALUES (?, ?)");) {
-			statement.setLong(1, order.getOrderId());
-			statement.setLong(2, order.getCustomerId());
+						.prepareStatement("INSERT INTO orders(customerID, cost) VALUES (?, ?)");) {
+			// orderitemID may not be needed - cost instead
+			statement.setLong(1, order.getCustomerId());
+			statement.setDouble(2, order.getCost());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -102,9 +104,10 @@ public static final Logger LOGGER = LogManager.getLogger();
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE orders SET orderID = ?, customerID = ? WHERE id = ?");) {
-			statement.setLong(1, order.getOrderId());
-			statement.setLong(2, order.getCustomerId());
+						.prepareStatement("UPDATE orders SET ID = ?, customerID = ? WHERE id = ?");) {
+			statement.setLong(1, order.getCustomerId());
+			statement.setDouble(2, order.getCost());
+			statement.setLong(3, order.getOrderId());
 			statement.executeUpdate();
 			return read(order.getOrderId());
 		} catch (Exception e) {

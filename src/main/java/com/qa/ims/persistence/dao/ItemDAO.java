@@ -1,11 +1,11 @@
 package com.qa.ims.persistence.dao;
 
-	import java.sql.Connection; 
+	import java.sql.Connection;  
 	import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
-	import java.util.ArrayList;
+	import java.util.ArrayList; 
 	import java.util.List;
 	 
 	import org.apache.logging.log4j.LogManager;
@@ -48,7 +48,7 @@ import com.qa.ims.utils.DBUtils;
 			}
 			return new ArrayList<>();
 		}
-
+ 
 		public Item readLatest() {
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					Statement statement = connection.createStatement();
@@ -71,9 +71,10 @@ import com.qa.ims.utils.DBUtils;
 		public Item create(Item item) {
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					PreparedStatement statement = connection
-							.prepareStatement("INSERT INTO items(cost, name) VALUES (?, ?)");) {
-				statement.setDouble(1, item.getCost());
-				statement.setString(2, item.getName());
+							.prepareStatement("INSERT INTO items(id, cost, name) VALUES (?, ?, ?);");) {
+				statement.setLong(1, item.getId());
+				statement.setDouble(2, item.getCost());
+				statement.setString(3, item.getName());
 				statement.executeUpdate();
 				return readLatest();
 			} catch (Exception e) {
@@ -136,5 +137,3 @@ import com.qa.ims.utils.DBUtils;
 		}
 
 	}
-
-
