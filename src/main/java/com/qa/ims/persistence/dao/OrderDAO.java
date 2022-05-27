@@ -22,7 +22,8 @@ public static final Logger LOGGER = LogManager.getLogger();
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderId = resultSet.getLong("orderID");
 		Long customerId = resultSet.getLong("customerID");
-		return new Order(orderId, customerId);
+		Double cost = resultSet.getDouble("cost");
+		return new Order(orderId, customerId, cost);
 	}
   
 	/** 
@@ -69,9 +70,10 @@ public static final Logger LOGGER = LogManager.getLogger();
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(orderID, customerID) VALUES (?, ?)");) {
-			statement.setLong(1, order.getOrderId());
-			statement.setLong(2, order.getCustomerId());
+						.prepareStatement("INSERT INTO orders(customerID, cost) VALUES (?, ?)");) {
+			// orderitemID may not be needed - cost instead
+			statement.setLong(1, order.getCustomerId());
+			statement.setDouble(2, order.getCost());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -103,8 +105,9 @@ public static final Logger LOGGER = LogManager.getLogger();
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE orders SET orderID = ?, customerID = ? WHERE id = ?");) {
-			statement.setLong(1, order.getOrderId());
-			statement.setLong(2, order.getCustomerId());
+			statement.setLong(1, order.getCustomerId());
+			statement.setDouble(2, order.getCost());
+			statement.setLong(3, order.getOrderId());
 			statement.executeUpdate();
 			return read(order.getOrderId());
 		} catch (Exception e) {

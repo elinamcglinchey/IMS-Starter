@@ -20,3 +20,13 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
 `name` VARCHAR(40) DEFAULT NULL,
 PRIMARY KEY (`id`)
 );
+
+drop table if exists orders;
+create table orders(
+orderID int not null AUTO_INCREMENT,
+customerID int not null,
+cost double not null,
+primary key (orderID),
+foreign key(customerID) references customers(id) on delete cascade on update cascade
+);
+
