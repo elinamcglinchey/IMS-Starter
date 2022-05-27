@@ -7,7 +7,7 @@ public class Customer {
 	private String surname;
 	private String username;
 	private String password;
- 
+
 	
 	public Customer(String firstName, String surname, String username, String password) {
 		super();
@@ -41,7 +41,7 @@ public class Customer {
 	public String getFirstName() {
 		return firstName;
 	}
- 
+
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
