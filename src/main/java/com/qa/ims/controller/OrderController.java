@@ -50,7 +50,7 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter a cost");
 		Double cost = utils.getDouble();
 		Order order = orderDAO.create(new Order(orderId, customerId, cost));
-		LOGGER.info("Customer created");
+		LOGGER.info("order created");
 		return order;
 	}
 
