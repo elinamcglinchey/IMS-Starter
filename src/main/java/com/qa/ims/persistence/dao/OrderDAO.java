@@ -20,9 +20,9 @@ public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override 
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long orderId = resultSet.getLong("orderID");
+		Long orderId = resultSet.getLong("ID");
 		Long customerId = resultSet.getLong("customerID");
-		Double cost = resultSet.getDouble("cost");
+		double cost = resultSet.getDouble("cost");
 		return new Order(orderId, customerId, cost);
 	}
   
@@ -104,7 +104,7 @@ public static final Logger LOGGER = LogManager.getLogger();
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE orders SET orderID = ?, customerID = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE orders SET ID = ?, customerID = ? WHERE id = ?");) {
 			statement.setLong(1, order.getCustomerId());
 			statement.setDouble(2, order.getCost());
 			statement.setLong(3, order.getOrderId());

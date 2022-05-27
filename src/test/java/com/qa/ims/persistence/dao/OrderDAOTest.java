@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
+@Ignore
 public class OrderDAOTest {
 
 	private final OrderDAO DAO = new OrderDAO();

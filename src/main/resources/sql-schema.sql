@@ -23,7 +23,7 @@ PRIMARY KEY (`id`)
 
 drop table if exists `ims`.`orders`;
 create table orders(
-orderID int not null AUTO_INCREMENT,
+ID int not null AUTO_INCREMENT,
 customerID int not null,
 cost double not null,
 primary key (orderID),
