@@ -25,12 +25,12 @@ import com.qa.ims.utils.DBUtils;
 			Double cost = resultSet.getDouble("cost");
 			String name = resultSet.getString("name");
 			return new Item(id, cost, name);
-		}
+		} 
 	 
 		/**
-		 * Reads all customers from the database
+		 * Reads all items from the database
 		 * 
-		 * @return A list of customers
+		 * @return A list of items
 		 */
 		@Override
 		public List<Item> readAll() {

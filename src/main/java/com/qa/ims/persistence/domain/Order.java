@@ -11,6 +11,8 @@ public class Order {
 		this.customerId = customerId;
 		this.cost = cost;
 	}
+	
+	// added one with orderId and one without
 	public Order(Long customerId, Double cost) {
 		super();
 		this.customerId = customerId;
