@@ -11,6 +11,7 @@ public class Item {
 		this.cost = cost;
 		this.name = name;
 	}
+	// Changed Long from INT and Double from Float
 	public Item(Long id, Double cost, String name) {
 		super();
 		this.id = id; 

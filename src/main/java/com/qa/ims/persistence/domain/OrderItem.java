@@ -88,5 +88,7 @@ public class OrderItem {
 		} else if (!orderItemId.equals(other.orderItemId))
 			return false;
 		return true;
+		
 	}
+	// File was unused in the end, may use when improving the test
 }
