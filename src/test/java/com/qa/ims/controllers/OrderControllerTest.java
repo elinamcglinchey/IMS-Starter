@@ -35,8 +35,8 @@ public class OrderControllerTest {
 	public void testCreate() {
 		//final String ITEM_ID = "4", ITEM_COST = "0.65", ITEM_NAME = "pencil";
 		//final Long ORDERITEM_ID = 189L;
-		final Long ORDER_ID = 9L;
-		final Long CUSTOMER_ID = 190L;
+		final Long ORDER_ID = 1L;
+		final Long CUSTOMER_ID = 1L;
 		final Double COST = 77.05;
 		final Order created = new Order(ORDER_ID, CUSTOMER_ID, COST);
 
@@ -58,7 +58,7 @@ public class OrderControllerTest {
 	@Test
 	public void testReadAll() { // add to sql data
 		List<Order> orders = new ArrayList<>();
-		orders.add(new Order(12L, 1231L, 88.90));
+		orders.add(new Order(2L, 2L, 88.90));
 
 		Mockito.when(dao.readAll()).thenReturn(orders);
 
@@ -69,7 +69,7 @@ public class OrderControllerTest {
 
 	@Test
 	public void testUpdate() {
-		Order updated = new Order(13L, 190L, 77.05);
+		Order updated = new Order(3L, 3L, 77.05);
 
 		Mockito.when(this.utils.getLong()).thenReturn(updated.getOrderId(),updated.getCustomerId());
 	//	Mockito.when(this.utils.getLong()).thenReturn(190L);
